@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>View</title>
+  <link href="/static/css/main.css" rel="stylesheet">
+  <link rel="icon" type="image/x-icon" href="/static/img/favicon.ico">
+</head>
+<body>
+  <div id="ip-container" data-value={{.ServerIP}} display=none></div>
+  <div id="virtual-cursor"></div>
+<div>
+  <div class="video-container" id="game-area">
+    <div class="statistic">
+      <div class="statistic-element" id="rtt-display">延迟：0 ms</div>
+      <div class="statistic-element" id="fps-display">FPS：0</div>
+      <div class="statistic-element" id="packet-loss-display">丢包率：0.0%</div>
+      <div class="statistic-element" id="byte-rate-display">传输速率：0 KB/s</div>
+      <div class="statistic-element" id="frame-delay-display">帧时延：0 ms</div>
+    </div>
+    <div class="loader-container" id="spin-loader">   
+      <div class="loader"></div>  
+      <div class="loader-text" id="loader-text">这窗外，这夜色，流光溢彩...</div>  
+    </div> 
+    <video id="remotevideo" autoplay playsinline></video>
+  </div>
+  <div class="button-container">
+          <div class="prompt-container">
+            <p id="prompt"> 按下“Ctrl+B”进入控制模式  </p>
+          </div>
+          <input type="text" id="ip-input" value={{.ServerIP}}>
+          <button id="connserver" disabled>连接</button><br>
+          <button id="idle" disabled>挂机模式</button>      
+          <!-- <button id="toggleFullScreen">全屏</button> -->
+  </div>
+</div>
+
+<!-- <script src="https://cdn.bootcss.com/socket.io/2.3.0/socket.io.js"></script> -->
+<script src="https://cdn.bootcss.com/webrtc-adapter/zv4.1.1/adapter.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script src="/static/js/codecs.js"></script>
+<script src="/static/js/room.js"></script>
+<script src="/static/js/key.js"></script>
+<script src="/static/js/sync.js"></script>
+<script src="/static/js/statistic.js"></script>
+<script src="/static/js/cursor.js"></script>
+<script src="/static/js/status.js"></script>
+</body>
+</html>

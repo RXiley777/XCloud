@@ -1,0 +1,105 @@
+/* 加载器容器样式 */  
+.loader-container {  
+    position: absolute;  
+    top: 50%; /* 垂直居中 */  
+    left: 50%; /* 水平居中 */  
+    transform: translate(-50%, -50%); /* 偏移以定位到中心 */  
+    z-index: 2; /* 确保在 video 之上 */  
+    display: flex;  
+    flex-direction: column; /* 垂直堆叠加载器和文本 */  
+    align-items: center; /* 垂直居中文本 */  
+    justify-content: center; /* 水平居中文本（如果需要） */  
+    text-align: center; /* 水平居中文本内容 */  
+    /* 其他样式，如背景色、边框等 */  
+  }  
+    
+  /* 旋转加载器样式 */  
+  .loader {  
+    /* 这里放置你的旋转动画样式 */  
+    border: 16px solid #f3f3f3; /* Light grey */  
+    border-top: 16px solid #3498db; /* Blue */  
+    border-radius: 50%;  
+    width: 80px;  
+    height: 80px;  
+    animation: spin 2s linear infinite;  
+    margin-bottom: 10px; /* 可选，根据需要调整加载器和文本之间的距离 */  
+  }
+    
+  .loader-text {  
+    /* 将文字置于加载动画下方 */  
+    margin-top: 20px; /* 或者根据需要调整间距 */  
+    font-size: 18px;  
+    text-align: center;  
+  }  
+    
+  @keyframes spin {  
+    0% { transform: rotate(0deg); }  
+    100% { transform: rotate(360deg); }  
+  } 
+
+.video-container {  
+    position: relative;  
+    max-width: 100%;
+    flex: 1; /* 视频容器占据除了按钮之外的所有可用空间 */  
+    display: flex; /* 使用Flexbox来水平居中视频 */  
+    justify-content: center; /* 水平居中 */  
+    align-items: center; /* 垂直居中（如果需要的话） */  
+    z-index: 1;
+}  
+  
+#remotevideo {   
+    display: flex;  
+    justify-content: center;  
+    align-items: center;
+    width: 90%; /* 宽度自适应 */  
+    height: auto; /* 保持原始纵横比 */  
+}  
+  
+.button-container {  
+    display: flex; /* 使用Flexbox来水平居中按钮 */  
+    justify-content: center; /* 水平居中 */  
+    margin-top: auto; /* 将按钮推到容器底部 */  
+}  
+  
+button {  
+    margin: 0 20px; /* 设置按钮之间的间距 */  
+    padding: 8px 8px;
+    font-size: 16px;  
+}
+
+.prompt-container {
+    display: flex;  
+    justify-content: center;
+    align-items: center;  
+}
+
+.statistic {  
+    position: fixed; /* 固定在视口顶部 */  
+    top: 0; /* 距离视口顶部0距离 */  
+    left: 50%; /* 相对于视口左边缘移动50% */  
+    transform: translateX(-50%); /* 向左移动自身宽度的50%，以实现居中 */
+    background: rgba(255, 255, 255, 0.5);
+    display: flex; /* 使用 flex 布局 */  
+    justify-content: space-between; /* 控制元素之间的空间 */  
+    z-index: 5;
+    width: 60%;
+  }  
+    
+.statistic-element {  
+flex: 1; /* 分配空间，这里表示两个元素各占一半 */  
+} 
+
+#virtual-cursor {
+    position: absolute;  
+    pointer-events: none; /* 防止自定义光标接收鼠标事件 */  
+    /* 其他样式，如形状、大小、背景等 */  
+    width: 48px;  
+    height: 48px;  
+    top: 50px;
+    left: 50px;
+    border-radius: 50%;  
+    background-image: url('/static/img/208401.png'); /* 替换为你的图像URL */  
+    background-size: cover; /* 确保图像覆盖整个光标 */   
+    display: none; /* 初始时隐藏自定义光标 */  
+    z-index: 6;
+}

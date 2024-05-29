@@ -1,0 +1,7 @@
+[
+    {
+        "name" : "StarRail",
+        "package" : "com.miHoYo.hkrpg",
+        "activity" : "com.mihoyo.combosdk.ComboSDKActivity"
+    }
+]

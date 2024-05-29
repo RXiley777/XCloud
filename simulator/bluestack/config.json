@@ -1,0 +1,8 @@
+{
+    "simulator":{
+        "category" : "bluestack",
+        "dir" : "C:\\Program Files\\BlueStacks_nxt_cn\\HD-Player.exe",
+        "name" : "127.0.0.1:5555",
+        "maximize" : true
+    }
+}
