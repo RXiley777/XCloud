@@ -5,7 +5,7 @@
         "game_need_boosting" : true
     },
     "rtc":{
-        "rtc_dir" : "D:\\webrtc\\src\\out\\av1tst\\peerconnection_client.exe",
+        "rtc_dir" : "D:\\webrtc\\src\\out\\xrtc\\peerconnection_client.exe",
         "rtc_log_dir" : "",
         "rtc_is_release" : true
     },
