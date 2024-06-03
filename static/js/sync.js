@@ -26,7 +26,7 @@ function sendSync() {
 
 function checkReadyAndSend() {
     //console.log(dc.readyState)
-    if (dc.readyState === 'open' && !sync_ready) { 
+    if (dc.readyState === 'open') { 
         //console.log("<<<<<< send sync")
         var t = "&" + performance.now()
         //console.log("<<< time to be send : "+t)
@@ -55,8 +55,8 @@ function handleSyncReply(data) {
     console.log("&& dom time : " + standard_dom_time + " && ntp_time : " + remote_ntp_time)
     if (attempt && sync_interval == 1000) {
         clearInterval(attempt)
-        sync_interval = 8000
-        //attempt = setInterval(checkReadyAndSend, sync_interval)
+        sync_interval = 60000
+        attempt = setInterval(checkReadyAndSend, sync_interval)
     } 
 }
 

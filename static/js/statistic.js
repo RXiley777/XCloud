@@ -100,7 +100,7 @@ function updateFpsDisplay() {
 }
 
 function updatePacketLoss() {
-    const packet_loss = current_packet_loss.toFixed(1)
+    const packet_loss = Math.abs(current_packet_loss.toFixed(1))
     packetlossdis.textContent = `丢包率：${packet_loss}%`
 }
 
@@ -108,7 +108,7 @@ var fd_high_cnt = 0;
 var fd_low_cnt = 0;
 function updateFrameDelay() {
     const frame_delay = Math.floor(current_frame_delay)
-    if (frame_delay > 100) {
+    if (frame_delay > 200) {
         fd_low_cnt = 0;
         ++fd_high_cnt;
         if (fd_high_cnt > 10) {

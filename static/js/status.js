@@ -60,15 +60,15 @@ document.addEventListener('visibilitychange', visibilityHandler);
 
 function visibilityHandler() {
   if (pip_live || black_mode) return
-  if (document.visibilityState === "hidden") {
-    if (dc) {
-      dc.send("@B");
-    }
-  }
+  // if (document.visibilityState === "hidden") {
+  //   if (dc) {
+  //     dc.send("@B");
+  //   }
+  // }
 
-  if (document.visibilityState === "visible") {
-    if (dc) {
-      dc.send("@T");
-    }
-  }
+  // if (document.visibilityState === "visible") {
+  //   if (dc) {
+  //     dc.send("@T");
+  //   }
+  // }
 }
