@@ -34,14 +34,21 @@ func (cch cacheControlHandler) ServeHTTP(w http.ResponseWriter, r *http.Request)
 	cch.handler.ServeHTTP(w, r)
 }
 
-func NewFrontServer(ch *ctrl.CtrlHandles) (*FrontServer, error) {
+func NewFrontServer(ch *ctrl.CtrlHandles, server_ip string) (*FrontServer, error) {
 	tmpl, err := template.ParseFiles("./static/index.html")
 	if err != nil {
 		return nil, err
 	}
 
+	var target_ip string
+	if server_ip != "" {
+		target_ip = server_ip
+	} else {
+		target_ip = utils.GameIP()
+	}
+
 	return &FrontServer{
-		gameIP:     utils.GameIP(),
+		gameIP:     target_ip,
 		tmpl:       tmpl,
 		ctrlHandle: ch,
 		game_ready: false,

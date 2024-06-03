@@ -7,12 +7,18 @@ import (
 )
 
 type Config struct {
-	Game  GameConfig      `json:"game"`
-	Rtc   RTCConfig       `json:"rtc"`
-	Sig   SigConfig       `json:"signaling"`
-	Auth  AuthConfig      `json:"auth"`
-	Front FrontConfig     `json:"front"`
-	Sim   SimulatorConfig `json:"simulator"`
+	Server ServerConfig    `json:"server"`
+	Game   GameConfig      `json:"game"`
+	Rtc    RTCConfig       `json:"rtc"`
+	Sig    SigConfig       `json:"signaling"`
+	Auth   AuthConfig      `json:"auth"`
+	Front  FrontConfig     `json:"front"`
+	Sim    SimulatorConfig `json:"simulator"`
+}
+
+type ServerConfig struct {
+	ServerIP   string `json:"server_ip"`
+	ServerPort int    `json:"server_port"`
 }
 
 type GameConfig struct {

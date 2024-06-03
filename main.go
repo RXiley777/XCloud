@@ -40,7 +40,7 @@ func main() {
 		bluestack.NewBlueStackSimulator(config.Sim.Dir, config.Sim.Name),
 	)
 
-	front_server, err := front.NewFrontServer(handles)
+	front_server, err := front.NewFrontServer(handles, config.Server.ServerIP)
 	if err != nil {
 		fmt.Printf("fs server start failed : %v\n", err)
 		return
