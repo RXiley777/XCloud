@@ -1,4 +1,4 @@
-const max_expected_jitter_delay = 0;
+const max_expected_jitter_delay = 10;
 
 var btnConn = document.querySelector('button#connserver');
 //var btnLeave = document.querySelector('button#leave');
