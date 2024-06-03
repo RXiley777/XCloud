@@ -1,4 +1,4 @@
-
+const max_expected_jitter_delay = 0;
 
 var btnConn = document.querySelector('button#connserver');
 //var btnLeave = document.querySelector('button#leave');
@@ -226,6 +226,13 @@ function getRemoteStream(e) {
   remoteVideo.requestVideoFrameCallback(HandleFrame);
   remoteStream = e.streams[e.streams.length - 1];
   remoteVideo.srcObject = e.streams[e.streams.length - 1];
+  let receivers = pc.getReceivers();
+  //console.log("peerconnection get " + receivers.length + " recievers");
+  for (let r in receivers) {
+    if (r.jitterBufferTarget !== undefined) {
+      r.jitterBufferTarget = max_expected_jitter_delay;
+    }
+  }
   console.log("get " + e.streams.length + " remote streams, slowing down sendWait...")
   parse_wait_interval = 5000;
   sendSync() // try to send sync

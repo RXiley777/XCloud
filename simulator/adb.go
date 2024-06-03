@@ -6,6 +6,8 @@ import (
 	"fmt"
 	"os"
 	"os/exec"
+	"strconv"
+	"strings"
 )
 
 type AppConfig struct {
@@ -69,4 +71,21 @@ func (a ADBHandle) ADBDevices() *bytes.Buffer {
 	cmd.Stdout = &out
 	cmd.Run()
 	return &out
+}
+
+func (a ADBHandle) ADBCheckStarted(simulator_name string) bool {
+	cmd := exec.Command("adb", "-s", simulator_name, "shell", "getprop", "sys.boot_completed")
+	var out bytes.Buffer
+	cmd.Stdout = &out
+	cmd.Run()
+	output := strings.TrimSpace(out.String())
+	val, err := strconv.Atoi(output)
+	if err != nil {
+		//fmt.Println("can't convert result from ADBCheckStarted : ", err)
+		return false
+	}
+	if val == 1 {
+		return true
+	}
+	return false
 }

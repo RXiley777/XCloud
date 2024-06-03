@@ -38,6 +38,10 @@ func (s *BlueStackSimulator) readyForADB() bool {
 	return rdy
 }
 
+func (s *BlueStackSimulator) readyForApp() bool {
+	return s.adb.ADBCheckStarted(s.name)
+}
+
 func (s *BlueStackSimulator) waitUntilADBReady(max_times int) error {
 	if s.adb_ready {
 		return nil
@@ -76,10 +80,15 @@ func (s *BlueStackSimulator) StopSimulator() error {
 // TODO : Current Function doesn't emit any adb error, this error should be caught via adb connection
 func (s *BlueStackSimulator) StartApp(app_name string) error {
 	err := s.waitUntilADBReady(5)
-	//TODO : this interval is fixed and unstable
-	time.Sleep(10 * time.Second)
 	if err != nil {
 		return err
+	}
+	for i := 0; i < 60; i++ {
+		if s.readyForApp() {
+			fmt.Println("App Ready For Booting")
+			break
+		}
+		time.Sleep(1 * time.Second)
 	}
 	s.adb.ADBStart(s.name, app_name)
 	return nil

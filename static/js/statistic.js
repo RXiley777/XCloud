@@ -104,9 +104,30 @@ function updatePacketLoss() {
     packetlossdis.textContent = `丢包率：${packet_loss}%`
 }
 
-//此处是因为弱网脚本的策略问题，当弱网脚本的策略更新后应该改回去
+var fd_high_cnt = 0;
+var fd_low_cnt = 0;
 function updateFrameDelay() {
     const frame_delay = Math.floor(current_frame_delay)
+    if (frame_delay > 100) {
+        fd_low_cnt = 0;
+        ++fd_high_cnt;
+        if (fd_high_cnt > 10) {
+            if (dc) {
+                dc.send("@D");
+            }
+            fd_high_cnt = 0;
+        } 
+    }
+    if (frame_delay < 80) {
+        fd_high_cnt = 0;
+        ++fd_low_cnt;
+        if (fd_low_cnt > 8) {
+            if (dc) {
+                dc.send("@U");
+            }
+            fd_low_cnt = 0;
+        }
+    }
     framedelaydis.textContent = `帧时延：${frame_delay} ms`
 }
 

@@ -4,7 +4,11 @@ var isListening = false
 
 var prompt_text = document.getElementById('prompt')
 var idle_btn = document.getElementById('idle')
+var black_btn = document.getElementById('black')
+// var mute_btn = document.getElementById('mute')
 var pip_live = false
+var black_mode = false
+var is_mute = false
 
 var w_h_origin = null;
 const preset_resolutions = [270,360,540,720,1080]
@@ -27,7 +31,8 @@ function getResolution(target_width, target_height){
 
 idle_btn.addEventListener("click", function(){
     isListening = false
-    console.log('idle mode')
+    black_btn.disabled = true
+    console.log('idle-pip mode')
     DisableVirtualCursor();
     let rvideo = document.getElementById("remotevideo");
     rvideo.requestPictureInPicture().then((pipWindow) => {
@@ -53,9 +58,45 @@ idle_btn.addEventListener("click", function(){
     }
 })
 
+black_btn.addEventListener("click", function(){
+    if (black_mode) {
+        if (dc) {
+            dc.send("@T") //enable tracks
+        }
+        black_mode = false
+        idle_btn.disabled = false;
+        black_btn.textContent = "挂机模式";
+    } else {
+        if (dc) {
+            dc.send("@F") //disable tracks
+        }
+        idle_btn.disabled = true;
+        black_btn.textContent = "取消挂机";
+        black_mode = true
+    }
+})
+
+// mute_btn.addEventListener("click", function(){
+//     if (pip_live || black_mode) return;
+//     if (is_mute) {
+//         mute_btn.textContent = "静音模式";
+//         is_mute = false;
+//         if(dc) {
+//             dc.send("@T");
+//         }
+//     } else {
+//         mute_btn.textContent = "取消静音";
+//         is_mute = true;
+//         if(dc) {
+//             dc.send("@M");
+//         }
+//     }
+// })
+
 remoteVideo.addEventListener('leavepictureinpicture', function(event){
         console.log("exit idle mode");
         pip_live = false;
+        black_btn.disabled = false;
         w_h_origin = null;
         if (dc) {
             dc.send("@@");
@@ -163,6 +204,20 @@ window.addEventListener("keydown", function (event){
     }
     }
 )
+
+//第二种退出控制的方法，为了避免需要按两次esc才能退出控制
+document.addEventListener("pointerlockchange", (evt) => {
+    if (document.pointerLockElement) {
+
+    } else {
+        if (isListening) {
+            isListening = false
+            console.log('free mode')
+            DisableVirtualCursor();
+            prompt_text.textContent = "按下\“Ctrl+B\”进入控制模式"
+        }
+    }
+})
 
 window.addEventListener('keyup', function(event) {  
     if (isListening && dc && isValidKey(event.key)) {  
