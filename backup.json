@@ -1,4 +1,8 @@
 {
+    "server":{
+        "server_ip":"",
+        "server_port":5500
+    },
     "game":{
         "window_name" : "StarRail",
         "game_dir" : "",
