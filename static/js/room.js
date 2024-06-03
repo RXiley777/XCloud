@@ -1,4 +1,4 @@
-const max_expected_jitter_delay = 10;
+const max_expected_jitter_delay = 40.0;
 
 var btnConn = document.querySelector('button#connserver');
 //var btnLeave = document.querySelector('button#leave');
@@ -160,7 +160,7 @@ function createPeerConnection() { // as well as datachannel
     dc = pc.createDataChannel("ctrl");
     dc.onmessage = handleDatachannelMsg;
     dc.onclose = () => { console.log("=> datachannnel closed!") };
-    cursor_dc = pc.createDataChannel("cursor");
+    cursor_dc = pc.createDataChannel("cursor", {maxRetransmits : 1});
     if(cursor_dc === null) {
       console.log("Failed to create cursor_dc !")
     } else {
@@ -227,10 +227,12 @@ function getRemoteStream(e) {
   remoteStream = e.streams[e.streams.length - 1];
   remoteVideo.srcObject = e.streams[e.streams.length - 1];
   let receivers = pc.getReceivers();
-  //console.log("peerconnection get " + receivers.length + " recievers");
-  for (let r in receivers) {
+  console.log("peerconnection get " + receivers.length + " recievers");
+  for (var r of receivers) {
+    console.log(r)
     if (r.jitterBufferTarget !== undefined) {
       r.jitterBufferTarget = max_expected_jitter_delay;
+      console.log("setting jitterBufferTarget For " + r.track.kind + " : " + r.track.contentHint);
     }
   }
   console.log("get " + e.streams.length + " remote streams, slowing down sendWait...")

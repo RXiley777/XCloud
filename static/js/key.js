@@ -111,7 +111,7 @@ function isValidKey(key) {
   
 // 根据事件对象获取对应的“键码”  
 function getKeyCodeFromEvent(event) {
-    console.log(event.code);
+    //console.log(event.code);
     switch (event.code) {
         case 'ArrowUp':
             return 38; // 向上箭头键的传统 keyCode 值  
@@ -167,7 +167,7 @@ function getKeyCodeFromEvent(event) {
 
 let varea = document.getElementById("game-area");
 window.addEventListener("keydown", function (event){
-    if (!pip_live && !isListening && event.ctrlKey && event.key === "b") {
+    if (!pip_live && !isListening && event.ctrlKey) {
         isListening = true
         console.log('ctrl mode')
         varea.requestPointerLock();
@@ -181,7 +181,7 @@ window.addEventListener("keydown", function (event){
         console.log('free mode')
         this.document.exitPointerLock();
         DisableVirtualCursor();
-        prompt_text.textContent = "按下\“Ctrl+B\”进入控制模式"
+        prompt_text.textContent = "按下\“Ctrl\”进入控制模式"
         return 
     }
 
@@ -214,7 +214,7 @@ document.addEventListener("pointerlockchange", (evt) => {
             isListening = false
             console.log('free mode')
             DisableVirtualCursor();
-            prompt_text.textContent = "按下\“Ctrl+B\”进入控制模式"
+            prompt_text.textContent = "按下\“Ctrl\”进入控制模式"
         }
     }
 })
