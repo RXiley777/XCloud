@@ -1,6 +1,6 @@
 ## RXiley's Cloud Game  
   
-### 项目依赖  
+### 1. 项目依赖  
 #### 使用模拟器启动游戏（推荐）  
 + 安卓模拟器（推荐使用BlueStacks或雷电模拟器，`third_party`文件夹下提供了二者的安装包），以及**安装好想要运行的游戏**。  
 + adb工具，用于连接安卓模拟器，下载地址：[Android platform-tools](https://developer.android.com/studio/releases/platform-tools?hl=zh-cn)。
@@ -8,7 +8,7 @@
 #### 直接启动windows游戏
 + 安装指定的游戏（部分游戏可能会屏蔽按键消息，从而无法实现控制）。
   
-### 配置准备  
+### 2. 配置准备  
 #### 配置项文件  
 在项目主目录下（或xcloud.exe相同目录下），创建config.json文件，其内容格式可以参考backup.json文件。其中各配置项含义如下：
 + `server` : 服务手动配置项
@@ -38,7 +38,7 @@
 + `package` ：游戏APP包名。获取方式参考上述链接。
 + `activity` : 游戏启动的主事件名。获取方式参考上述链接。
   
-### 云游戏服务  
+### 3. 云游戏服务  
 #### 启动
 1. 确保`config.json`、`appconfig.json`配置正确并且存在于项目主目录下。确保安卓模拟器上的游戏已经安装。
 2. 运行`xcloud.exe`。
@@ -52,7 +52,7 @@
 #### 停止
 1. 目前停止逻辑为：在终端输入任意字符（或直接敲回车）即可退出服务，会停止所有云游戏相关服务，包括终止游戏以及关闭模拟器。
 
-### 服务依赖程序
+### 4. 服务依赖程序
 本项目主要是实现云游戏的控制逻辑，所以具体的游戏服务和RTC支持需要依靠其他程序实现，在`third_party`目录下，包含了使用定制化webrtc编译的RTC程序和安卓模拟器的安装包（不提供游戏安装包，需要自行下载）。
 + `peerconnection_client.exe` ：RTC服务提供程序，负责串流与控制指令模拟（优先使用VP9编码器）。
 + `peerconnection_server.exe` ：RTC信令服务程序。
