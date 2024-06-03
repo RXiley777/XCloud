@@ -41,8 +41,21 @@
 ### 云游戏服务  
 #### 启动
 1. 确保`config.json`、`appconfig.json`配置正确并且存在于项目主目录下。确保安卓模拟器上的游戏已经安装。
-2. 启动go程序。使用`go run .`或`go build .`然后运行`xcloud.exe`。
+2. 运行`xcloud.exe`。
+3. （如果二次开发）启动go程序。使用`go run .`或`go build .`然后运行`xcloud.exe`。
+
+#### 访问
+1. 用户如果要访问云游戏，需要访问配置于`front_address`中的地址，默认为":5500"。
+2. 目前只支持单用户访问站点（游戏暂时不支持调度与多开）。
+3. 由于云游戏服务的性质，请不要在同一终端机上启动服务与访问。
 
 #### 停止
 1. 目前停止逻辑为：在终端输入任意字符（或直接敲回车）即可退出服务，会停止所有云游戏相关服务，包括终止游戏以及关闭模拟器。
 
+### 服务依赖程序
+本项目主要是实现云游戏的控制逻辑，所以具体的游戏服务和RTC支持需要依靠其他程序实现，在`third_party`目录下，包含了使用定制化webrtc编译的RTC程序和安卓模拟器的安装包（不提供游戏安装包，需要自行下载）。
++ `peerconnection_client.exe` ：RTC服务提供程序，负责串流与控制指令模拟（优先使用VP9编码器）。
++ `peerconnection_server.exe` ：RTC信令服务程序。
++ `BlueStacksMicroInstaller.exe` : 蓝叠模拟器(BlueStacks)安装包。
++ `ldplayer9_ld_112_ld.exe` : 雷电模拟器9安装包。
++ `av1/peerconnection_client.exe` : 优先使用AV1编码器的RTC服务提供程序，可以替代`peerconnection_client.exe`。
