@@ -11,7 +11,10 @@
 
 var standard_dom_time = null;
 var remote_ntp_time = null;
+var last_standard_dom_time = null;
+var last_remote_ntp_time = null;
 var attempt = null;
+var n_attempt = null;
 
 var send_sync_time = null;
 var sync_interval = 1000
@@ -21,12 +24,12 @@ function sendSync() {
         console.error("sendSync should not be called when datachannel hasn't been initialized!")
         return 
     }
-    attempt = setInterval(checkReadyAndSend, sync_interval)
+    if(!attempt) attempt = setInterval(checkReadyAndSend, sync_interval)
 }   
 
 function checkReadyAndSend() {
     //console.log(dc.readyState)
-    if (dc.readyState === 'open' && !sync_ready) { 
+    if (dc.readyState === 'open') { 
         //console.log("<<<<<< send sync")
         var t = "&" + performance.now()
         //console.log("<<< time to be send : "+t)
@@ -48,15 +51,21 @@ function handleSyncReply(data) {
         return
     }
     //arr[1] is currently unused
+    if(standard_dom_time && remote_ntp_time) {
+        last_standard_dom_time = standard_dom_time;
+        last_remote_ntp_time = remote_ntp_time;
+    }
     standard_dom_time = send_sync_time + (recv_sync_time - send_sync_time) / 2
     console.log("estimated rtt : " + (recv_sync_time - send_sync_time))
     remote_ntp_time = arr[2]
     sync_ready = true
     console.log("&& dom time : " + standard_dom_time + " && ntp_time : " + remote_ntp_time)
+    let time_inter_bias = (remote_ntp_time - last_remote_ntp_time) - (standard_dom_time - last_standard_dom_time);
+    console.log("&& time bias since last sync : " + time_inter_bias + " , after " + sync_interval + "ms")
     if (attempt && sync_interval === 1000) {
         clearInterval(attempt)
-        sync_interval = 60000
-        //attempt = setInterval(checkReadyAndSend, sync_interval)
+        sync_interval = 120000
+        n_attempt = setInterval(checkReadyAndSend, sync_interval)
     } 
 }
 

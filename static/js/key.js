@@ -30,11 +30,12 @@ function getResolution(target_width, target_height){
 }
 
 idle_btn.addEventListener("click", function(){
+    let rvideo = document.getElementById("remotevideo");
+    if(rvideo.requestPictureInPicture == undefined) return ;
     isListening = false
     black_btn.disabled = true
     console.log('idle-pip mode')
     DisableVirtualCursor();
-    let rvideo = document.getElementById("remotevideo");
     rvideo.requestPictureInPicture().then((pipWindow) => {
         pipWindow.addEventListener("resize", function(evt) {
             let res = getResolution(evt.target.width, evt.target.height);
@@ -166,11 +167,25 @@ function getKeyCodeFromEvent(event) {
 }
 
 let varea = document.getElementById("game-area");
-window.addEventListener("keydown", function (event){
-    if (!pip_live && !isListening && event.ctrlKey) {
+varea.addEventListener("click", function(evt){
+    if (!isListening) {
+        varea.requestPointerLock();
         isListening = true
         console.log('ctrl mode')
-        varea.requestPointerLock();
+        SyncWithRemoteCursor();
+        prompt_text.textContent = "按下\"Esc\"退出控制模式"
+    }
+});
+
+window.addEventListener("keydown", function (event){
+    if (!pip_live && !isListening && event.ctrlKey) {
+        try{
+            varea.requestPointerLock();
+        } catch (error) {
+            return ;
+        }
+        isListening = true
+        console.log('ctrl mode')
         SyncWithRemoteCursor();
         prompt_text.textContent = "按下\"Esc\"退出控制模式"
         return 
@@ -181,7 +196,7 @@ window.addEventListener("keydown", function (event){
         console.log('free mode')
         this.document.exitPointerLock();
         DisableVirtualCursor();
-        prompt_text.textContent = "按下\“Ctrl\”进入控制模式"
+        prompt_text.textContent = "   "
         return 
     }
 
@@ -214,7 +229,7 @@ document.addEventListener("pointerlockchange", (evt) => {
             isListening = false
             console.log('free mode')
             DisableVirtualCursor();
-            prompt_text.textContent = "按下\“Ctrl\”进入控制模式"
+            prompt_text.textContent = "   "
         }
     }
 })

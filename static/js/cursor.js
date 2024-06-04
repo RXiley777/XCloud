@@ -29,3 +29,8 @@ let game_area_ = document.getElementById("remotevideo");
    if (remote_cursor_live) EnableVirtualCursor();
    else DisableVirtualCursor();
  }
+
+ function RevertCursor(){
+   remote_cursor_live = !remote_cursor_live;
+   SyncWithRemoteCursor();
+ }

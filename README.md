@@ -4,12 +4,14 @@
 #### 使用模拟器启动游戏（推荐）  
 + 安卓模拟器（推荐使用BlueStacks或雷电模拟器，`third_party`文件夹下提供了二者的安装包），以及**安装好想要运行的游戏**。  
 + adb工具，用于连接安卓模拟器，下载地址：[Android platform-tools](https://developer.android.com/studio/releases/platform-tools?hl=zh-cn)。
++ 配置adb环境变量，在Path中包含adb.exe所在目录。
   
 #### 直接启动windows游戏
 + 安装指定的游戏（部分游戏可能会屏蔽按键消息，从而无法实现控制）。
   
 ### 2. 配置准备  
 #### 配置项文件  
+**config.json**  
 在项目主目录下（或xcloud.exe相同目录下），创建config.json文件，其内容格式可以参考backup.json文件。其中各配置项含义如下：
 + `server` : 服务手动配置项
   + `server_ip` : 服务器IP设置，用于配置云游戏服务器所在IP地址，用于手动指定IP。如果该字段值为`""`，则程序会试图定位本机`ipconfig`中第一个可用的IP地址作为本机IP（这并不一定总是正确的）。
@@ -33,6 +35,7 @@
   + `name` : 模拟器的ADB名称，一般ADB使用5555端口，所以大多数情况下模拟器名称会直接使用"127.0.0.1:5555"，不建议更改。
   + `enabled` ：是否使用模拟器启动游戏，程序将根据此配置项决定是使用模拟器还是直接启动windows游戏。
   
+**appconfig.json**  
 同时如果使用模拟器启动游戏，需要根据启动的具体游戏，在`appconfig.json`中写入对应游戏的启动选项。目前预置了《崩坏·星穹铁道》对应的安卓包启动选项（包名和主事件名）。如何查找APP对应的启动命令可以参考[Android adb启动任意app的几种方式](https://blog.csdn.net/ezconn/article/details/99885715) 。`appconfig.json`中可以包含多个游戏的启动选项。
 + `name` : 游戏名称，需要与`config.json`中的`game`字段中的`window_name`对应。
 + `package` ：游戏APP包名。获取方式参考上述链接。
@@ -58,4 +61,9 @@
 + `peerconnection_server.exe` ：RTC信令服务程序。
 + `BlueStacksMicroInstaller.exe` : 蓝叠模拟器(BlueStacks)安装包。
 + `ldplayer9_ld_112_ld.exe` : 雷电模拟器9安装包。
-+ `av1/peerconnection_client.exe` : 优先使用AV1编码器的RTC服务提供程序，可以替代`peerconnection_client.exe`。
++ `av1/peerconnection_client.exe` : 优先使用AV1编码器的RTC服务提供程序，可以替代`peerconnection_client.exe`。AV1编码器可以为性能较好的设备提供更出色的编码效果。  
+
+### 5. 注意事项  
++ 若使用模拟器，请确定开启了模拟器的ADB本地调试功能（雷电模拟器默认开启，蓝叠需要手动开启），并确认ADB端口号，一般默认是5555。
++ 由于模拟器默认的ADB端口都是5555，所以在没有自定义模拟器连接名的时候请**不要在云游戏服务时切换启动多个开启了ADB调试的模拟器**，这可能会导致ADB无法识别想要启动的模拟器从而导致无法自动拉起游戏进程（只能在客户端或者服务端手动点击）。若出现上述情况，请断开原有ADB连接并重试。
++ `peerconnection_client.exe`的串流服务只是指定了编解码偏好，具体使用的编解码标准取决于云游戏客户端（Web浏览器）的解码能力。

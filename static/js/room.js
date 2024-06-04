@@ -1,4 +1,4 @@
-const max_expected_jitter_delay = 40.0;
+const max_expected_jitter_delay = 20;
 
 var btnConn = document.querySelector('button#connserver');
 //var btnLeave = document.querySelector('button#leave');
@@ -39,6 +39,7 @@ function connSignalServer() {
   }
   URLINPUT = URLINPUT + ip_input + DEFAULTPORT;
   conn();
+  console.log("^^^ connection done");
   return true;
 }
 
@@ -151,7 +152,7 @@ function createPeerConnection() { // as well as datachannel
   if (!pc) {
     //pc = new RTCPeerConnection(pcConfig);
     pc = new RTCPeerConnection();
-    console.log(pc.getTransceivers())
+    console.log(pc)
     let transceiver = pc.getTransceivers().find(t => t.receiver);
     if (transceiver !== undefined) transceiver.setCodecPreferences(selected_codecs);
     transceiver = pc.getTransceivers().find(t => t.sender);
@@ -223,7 +224,7 @@ function HandleFrame(now, metadata) {
 }
 
 function getRemoteStream(e) {
-  remoteVideo.requestVideoFrameCallback(HandleFrame);
+  if(remoteVideo.requestVideoFrameCallback !== undefined) remoteVideo.requestVideoFrameCallback(HandleFrame);
   remoteStream = e.streams[e.streams.length - 1];
   remoteVideo.srcObject = e.streams[e.streams.length - 1];
   let receivers = pc.getReceivers();

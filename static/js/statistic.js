@@ -96,26 +96,6 @@ function updateRttDisplay() {
 
 function updateFpsDisplay() {
     const fps = Math.ceil(getFps())
-    // if (fps < 30) {
-    //     fd_low_cnt = 0;
-    //     ++fd_high_cnt;
-    //     if (fd_high_cnt > 10) {
-    //         if (dc && dc.readyState === 'open') {
-    //             dc.send("@D");
-    //         }
-    //         fd_high_cnt = 0;
-    //     } 
-    // }
-    // if (fps > 60) {
-    //     fd_high_cnt = 0;
-    //     ++fd_low_cnt;
-    //     if (fd_low_cnt > 8) {
-    //         if (dc && dc.readyState === 'open') {
-    //             dc.send("@U");
-    //         }
-    //         fd_low_cnt = 0;
-    //     }
-    // }
     fpsdis.textContent = `FPS：${fps}`
 }
 
@@ -128,6 +108,26 @@ var fd_high_cnt = 0;
 var fd_low_cnt = 0;
 function updateFrameDelay() {
     const frame_delay = Math.floor(current_frame_delay)
+    if (frame_delay > 150) {
+        fd_low_cnt = 0;
+        ++fd_high_cnt;
+        if (fd_high_cnt > 10) {
+            if (dc && dc.readyState === 'open') {
+                dc.send("@D");
+            }
+            fd_high_cnt = 0;
+        } 
+    }
+    if (frame_delay < 130) {
+        fd_high_cnt = 0;
+        ++fd_low_cnt;
+        if (fd_low_cnt > 8) {
+            if (dc && dc.readyState === 'open') {
+                dc.send("@U");
+            }
+            fd_low_cnt = 0;
+        }
+    }
     framedelaydis.textContent = `帧时延：${frame_delay} ms`
 }
 
