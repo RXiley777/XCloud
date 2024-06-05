@@ -74,6 +74,7 @@ func (s *BlueStackSimulator) StartSimulator() error {
 
 func (s *BlueStackSimulator) StopSimulator() error {
 	s.adb_ready = false
+	s.adb.ADBKill()
 	return s.WinHandle.Stop()
 }
 

@@ -89,3 +89,8 @@ func (a ADBHandle) ADBCheckStarted(simulator_name string) bool {
 	}
 	return false
 }
+
+func (a ADBHandle) ADBKill() {
+	cmd := exec.Command("adb", "kill-server")
+	cmd.Start()
+}
