@@ -115,7 +115,7 @@ function updateFrameDelay() {
             if (dc && dc.readyState === 'open') {
                 dc.send("@D");
             }
-            fd_high_cnt = 0;
+            fd_high_cnt = 0;    
         } 
     }
     if (frame_delay < 130) {
