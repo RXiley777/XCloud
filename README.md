@@ -21,7 +21,7 @@
   + `game_dir` : 如果直接启动windows游戏，此选项代表游戏的启动入口（通常是一个exe程序）。如果使用模拟器启动，该选项无需配置。
   + `game_need_boosting` ：开发中，无需配置。
 + `rtc` ：RTC服务相关配置。
-  + `rtc_dir` : rtc程序的位置，通常指`peerconnection_client.exe`的位置。`third_party`文件夹下包含一个`peerconnection_client.exe`，可以直接使用，也可以自行编译新的client然后指定位置。
+  + `rtc_dir` : rtc程序的位置，通常指`peerconnection_client.exe`的位置。`third_party`文件夹下包含多个版本的`peerconnection_client.exe`，位于`vp9`和`av1`目录下（其中也包括使用vbr的版本），可以直接使用，也可以自行编译新的client然后指定位置。
   + `rtc_log_dir` : 开发中，目前RTC日志会输出到`D://rtclog`路径下。
   + `rtc_is_release` ：无需配置。
 + `signaling` ：信令服务配置。
@@ -36,7 +36,7 @@
   + `enabled` ：是否使用模拟器启动游戏，程序将根据此配置项决定是使用模拟器还是直接启动windows游戏。
   
 **appconfig.json**  
-同时如果使用模拟器启动游戏，需要根据启动的具体游戏，在`appconfig.json`中写入对应游戏的启动选项。目前预置了《崩坏·星穹铁道》对应的安卓包启动选项（包名和主事件名）。如何查找APP对应的启动命令可以参考[Android adb启动任意app的几种方式](https://blog.csdn.net/ezconn/article/details/99885715) 。`appconfig.json`中可以包含多个游戏的启动选项。
+同时如果使用模拟器启动游戏，需要根据启动的具体游戏，在`appconfig.json`中写入对应游戏的启动选项。目前预置了《崩坏：星穹铁道》对应的安卓包启动选项（包名和主事件名）。如何查找APP对应的启动命令可以参考[Android adb启动任意app的几种方式](https://blog.csdn.net/ezconn/article/details/99885715) 。`appconfig.json`中可以包含多个游戏的启动选项。
 + `name` : 游戏名称，需要与`config.json`中的`game`字段中的`window_name`对应。
 + `package` ：游戏APP包名。获取方式参考上述链接。
 + `activity` : 游戏启动的主事件名。获取方式参考上述链接。
@@ -67,3 +67,4 @@
 + 若使用模拟器，请确定开启了模拟器的ADB本地调试功能（雷电模拟器默认开启，蓝叠需要手动开启），并确认ADB端口号，一般默认是5555。
 + 由于模拟器默认的ADB端口都是5555，所以在没有自定义模拟器连接名的时候请**不要在云游戏服务时切换启动多个开启了ADB调试的模拟器**，这可能会导致ADB无法识别想要启动的模拟器从而导致无法自动拉起游戏进程（只能在客户端或者服务端手动点击）。若出现上述情况，请断开原有ADB连接并重试。
 + `peerconnection_client.exe`的串流服务只是指定了编解码偏好，具体使用的编解码标准取决于云游戏客户端（Web浏览器）的解码能力。
++ `third_party/av1`和`third_party/vp9`目录下包含了优先指定不同编码器的串流服务端，各自目录下的`./vbr`代表使用VBR（可变码率）模式编码的服务端，默认路径下的服务端采用的是CBR（恒定码率）模式编码。
