@@ -1,7 +1,7 @@
 {
     "server":{
-        "server_ip":"",
-        "server_port":5500
+        "server_ip" : "10.189.97.109",
+        "server_port" : -1
     },
     "game":{
         "window_name" : "StarRail",
@@ -9,13 +9,13 @@
         "game_need_boosting" : true
     },
     "rtc":{
-        "rtc_dir" : "D:\\webrtc\\src\\out\\xrtc\\peerconnection_client.exe",
+        "rtc_dir" : "E:\\XCloud\\third_party\\av1\\peerconnection_client.exe",
         "rtc_log_dir" : "",
         "rtc_is_release" : true
     },
     "signaling":{
         "sig_port" : 8888, 
-        "sig_dir" : "D:\\webrtc\\src\\out\\Default\\peerconnection_server.exe"
+        "sig_dir" : "E:\\XCloud\\third_party\\peerconnection_server.exe"
     },
     "auth" :{
         "auth_enable" : false
@@ -24,8 +24,8 @@
         "front_address" : ":5500"
     },
     "simulator":{
-        "category" : "BlueStacks",
-        "dir" : "C:\\Program Files\\BlueStacks_nxt_cn\\HD-Player.exe",
+        "category" : "雷电模拟器",
+        "dir" : "E:\\leidian\\LDPlayer9\\dnplayer.exe",
         "name" : "127.0.0.1:5555",
         "enabled" : true
     }
