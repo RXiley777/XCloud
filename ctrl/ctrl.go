@@ -2,6 +2,7 @@ package ctrl
 
 import (
 	"fmt"
+	"time"
 	"xcloud/services/game"
 	"xcloud/services/signal"
 	"xcloud/simulator"
@@ -95,6 +96,7 @@ func (h *CtrlHandles) startGame(reporter *utils.Error) {
 		fmt.Println("WARNINIG : Game has already started !")
 		return
 	}
+	time.Sleep(5 * time.Second)
 	err := h.gh.Start()
 	if err != nil {
 		reporter.Add(err)
