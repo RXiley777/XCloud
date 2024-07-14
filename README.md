@@ -11,6 +11,8 @@
     
   视频演示：
   + [XCloud Demo演示01](https://www.bilibili.com/video/BV1rLV5eKEWo/)
+  + [XCloud Demo演示02](https://www.bilibili.com/video/BV1p9b3eqEDf/)
+  + [XCloud Demo演示03](https://www.bilibili.com/video/BV142b3eGEV1/)
 ### 1. 项目依赖  
 #### 使用模拟器启动游戏（推荐）  
 + 安卓模拟器（推荐使用雷电模拟器或BlueStacks，`third_party`文件夹下提供了二者的安装包），以及**安装好想要运行的游戏**。  
@@ -47,7 +49,7 @@
   + `enabled` ：是否使用模拟器启动游戏，程序将根据此配置项决定是使用模拟器还是直接启动windows游戏。
   
 **appconfig.json**  
-同时如果使用模拟器启动游戏，需要根据启动的具体游戏，在`appconfig.json`中写入对应游戏的启动选项。目前预置了《崩坏：星穹铁道》对应的安卓包启动选项（包名和主事件名）。如何查找APP对应的启动命令可以参考[Android adb启动任意app的几种方式](https://blog.csdn.net/ezconn/article/details/99885715) 。`appconfig.json`中可以包含多个游戏的启动选项。
+同时如果使用模拟器启动游戏，需要根据启动的具体游戏，在`appconfig.json`中写入对应游戏的启动选项。目前预置了《崩坏：星穹铁道》与《绝区零》（注意：绝区零启动需要使用雷电模拟器的Vulkan专版，请自行下载，或者尝试在普通版中安装后根据模拟器的跳转提示去进行配置）对应的安卓包启动选项（包名和主事件名）。如何查找APP对应的启动命令可以参考[Android adb启动任意app的几种方式](https://blog.csdn.net/ezconn/article/details/99885715) 。`appconfig.json`中可以包含多个游戏的启动选项。
 + `name` : 游戏名称，需要与`config.json`中的`game`字段中的`window_name`对应。
 + `package` ：游戏APP包名。获取方式参考上述链接。
 + `activity` : 游戏启动的主事件名。获取方式参考上述链接。
@@ -94,3 +96,6 @@
   + 解决方案：统一双端行动模型，在模拟器中不使用呼出鼠标的按键映射，或在客户端中增加对应的动作模组映射。
 + 客户端按键冲突。
   + 目前前端浏览器页面没有对冲突快捷键进行过滤，可能会导致部分按键组合会触发浏览器行为导致未知效果（如Ctrl键+某些字母）。
++ 绝区零支持需要使用雷电模拟器的Vulkan专版。
+  + 原因：绝区零使用了Vulkan渲染技术，而雷电模拟器的普通版不支持Vulkan，所以需要使用雷电模拟器的Vulkan专版。
+  + 解决方案：下载雷电模拟器的Vulkan专版，然后在模拟器中安装绝区零，根据模拟器的跳转提示进行配置。

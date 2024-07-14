@@ -3,5 +3,10 @@
         "name" : "StarRail",
         "package" : "com.miHoYo.hkrpg",
         "activity" : "com.mihoyo.combosdk.ComboSDKActivity"
+    },
+    {
+        "name" : "ZZZ",
+        "package" : "com.miHoYo.Nap",
+        "activity" : "com.mihoyo.combosdk.ComboSDKActivity"
     }
 ]
