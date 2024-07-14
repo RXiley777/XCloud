@@ -9,10 +9,11 @@
   + 小窗口模式：支持小窗口模式，可以在浏览器中观看游戏画面，此时串流服务会进行降级，以节省流量。
   + 挂机功能：支持挂机功能，可以在游戏中挂机，期间串流服务会暂停，以节省流量。  
     
-  视频演示：
+  视频演示（个人电脑作为服务端，性能有限）：
   + [XCloud Demo演示01](https://www.bilibili.com/video/BV1rLV5eKEWo/)
-  + [XCloud Demo演示02](https://www.bilibili.com/video/BV1p9b3eqEDf/)
+  + [XCloud Demo演示02](https://www.bilibili.com/video/BV1p9b3eqEDf/) （含挂机模式与画中画模式演示。）
   + [XCloud Demo演示03](https://www.bilibili.com/video/BV142b3eGEV1/)
+  + [XCloud Demo演示-绝区零](https://www.bilibili.com/video/BV1LTbGeZEQY/) （公测当天版本，后续包更新后帧时延可以降至50ms左右。）
 ### 1. 项目依赖  
 #### 使用模拟器启动游戏（推荐）  
 + 安卓模拟器（推荐使用雷电模拟器或BlueStacks，`third_party`文件夹下提供了二者的安装包），以及**安装好想要运行的游戏**。  
